@@ -1,6 +1,10 @@
 <?php
 $total = 5;
-$page = 1;
+$page = filter_input(INPUT_GET, 'p', FILTER_SANITIZE_NUMBER_INT);
+if (empty($page)) {
+    $page = 1;
+}
+
 
 if ($page > $total) {
     header('location: story.php');
@@ -11,8 +15,8 @@ include 'inc/header.php';
 
 echo "<h1>Step $page of $total</h1>";
 
-echo '<form method="get" action="play.php">';
-echo '<input type="hidden" name="p" value="'. ($page+1) . '" />';
+echo '<form method="post" action="play.php?p=' . ($page + 1) . '">';
+echo '<input type="hidden" name="p" value="" />';
 echo '<div class="form-group form-group-lg">';
 
 switch ($page) {
